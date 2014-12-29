@@ -1,0 +1,29 @@
+{
+  "name": "nyama2",
+  "version": "0.1.0",
+  "description": "Node.js console tool",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cheerio": "^0.18.0",
+    "glob": "^4.3.2",
+    "nodemailer": "^1.3.0",
+    "nodemailer-smtp-transport": "^0.1.13",
+    "q": "^1.1.2",
+    "random-useragent": "^0.1.0",
+    "request": "^2.51.0",
+    "underscore": "^1.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:EvilDevRu/nyama2.git"
+  },
+  "author": "Dmitriy Yurchenko <evildev@evildev.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EvilDevRu/nyama2/issues"
+  },
+  "homepage": "https://github.com/EvilDevRu/nyama2"
+}

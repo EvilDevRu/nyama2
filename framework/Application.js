@@ -16,11 +16,14 @@ module.exports = function(config) {
 		var defer = _.Q.defer();
 
 		_.Q.spawn(function*() {
-			var files = yield _.io.glob('./*/components/*.js');
+			var files = _.union(
+				yield _.io.glob(__dirname + '/components/*.js'),					//	Nyama components.
+				yield _.io.glob(config.basePath + 'components/*.js')	//	User components.
+			);
 
 			yield _.Q.spawnMap(files, function*(file) {
 				var name = _.io.baseName(file, 'Component.js'),
-					Component = require('../' + file);
+					Component = require(file);
 
 				console.info('Load component:', name);
 

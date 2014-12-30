@@ -9,7 +9,7 @@ require('./helpers');
 /**
  * @class Nyama
  */
-module.exports = function() {
+global.Nyama = new (function() {
 	var App = require('./Application.js'),
 		app;
 
@@ -36,4 +36,4 @@ module.exports = function() {
 	this.app = function() {
 		return app;
 	};
-};
+})();

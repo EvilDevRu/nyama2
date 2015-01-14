@@ -43,7 +43,7 @@ module.exports = function() {
 			this._proxyList = yield this._loadProxyList();
 			this._aliveList = yield this._checkProxyList();
 
-			defer.resolve();
+			//defer.resolve();
 		}.bind(this));
 
 		return defer.promise;
@@ -58,10 +58,14 @@ module.exports = function() {
 
 		if (this._config.proxyList) {
 			console.info('Load proxy list');
+
 			_.io.readFile(this._config.proxyList)
 				.then(function(data) {
 					defer.resolve(data.toString().split("\n"));
-				}.bind(this));
+				})
+				.fail(function(error) {
+					console.error(123, error);
+				});
 		}
 		else {
 			defer.resolve();
@@ -78,7 +82,7 @@ module.exports = function() {
 		var defer = _.Q.defer(),
 			regexp = /Google/;
 
-		if (!this._proxyList || !this._config.useProxy) {
+		if (!this._proxyList || !this._config.isPrepare) {
 			defer.resolve([]);
 		}
 		else {

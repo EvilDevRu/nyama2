@@ -14,6 +14,7 @@
     "q": "^1.1.2",
     "random-useragent": "^0.1.0",
     "request": "^2.51.0",
+    "sequelize": "^2.0.0-rc4",
     "underscore": "^1.7.0"
   },
   "repository": {

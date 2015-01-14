@@ -43,7 +43,7 @@ module.exports = function() {
 			this._proxyList = yield this._loadProxyList();
 			this._aliveList = yield this._checkProxyList();
 
-			//defer.resolve();
+			defer.resolve();
 		}.bind(this));
 
 		return defer.promise;
@@ -64,7 +64,7 @@ module.exports = function() {
 					defer.resolve(data.toString().split("\n"));
 				})
 				.fail(function(error) {
-					console.error(123, error);
+					console.error(error);
 				});
 		}
 		else {

@@ -45,13 +45,14 @@ module.exports = {
 
 	/**
 	 * Read file.
-	 * @param {string} fileName
-	 * @returns {promise|*|Q.promise}
+	 * @param fileName
+	 * @param options
+	 * @returns {promise|*|exports.promise|Q.promise}
 	 */
-	readFile: function(fileName) {
+	readFile: function(fileName, options) {
 		var defer = _.Q.defer();
 
-		fs.readFile(fileName, function (error, data) {
+		fs.readFile(fileName, options || { encoding: 'utf-8' }, function (error, data) {
 			if (error) {
 				defer.reject(error);
 			}

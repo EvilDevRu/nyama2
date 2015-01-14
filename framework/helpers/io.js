@@ -61,5 +61,49 @@ module.exports = {
 		});
 
 		return defer.promise;
-	}
+	},
+
+	/**
+	 * Read dir.
+	 * @param {string} dirName
+	 */
+	readDir: function(dirName) {
+		var defer = _.Q.defer();
+
+		fs.readdir(dirName, function(error, files) {
+			if (error) {
+				defer.reject(error);
+				return;
+			}
+
+			defer.resolve(files);
+		});
+
+		return defer.promise;
+	},
+
+	/**
+	 * Tells whether the dirName is a directory.
+	 * @param {string} path path to a directory.
+	 * @returns {*}
+	 */
+	isDir: function(path) {
+		var defer = _.Q.defer();
+
+		try {
+			fs.lstat(path, function(error, stats) {
+				if (error) {
+					defer.resolve(false);
+				}
+				else {
+					defer.resolve(stats.isDirectory());
+				}
+			});
+		}
+		catch (e) {
+			defer.resolve(false);
+		}
+
+		return defer.promise;
+	},
 };

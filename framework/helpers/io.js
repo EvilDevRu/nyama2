@@ -107,4 +107,45 @@ module.exports = {
 
 		return defer.promise;
 	},
+
+	/**
+	 * Check file.
+	 * @param path
+	 * @returns {promise|*|exports.promise|Q.promise}
+	 */
+	isFile: function(path) {
+		var defer = _.Q.defer();
+
+		fs.exists(path, function(exists) {
+			defer.resolve(exists);
+		});
+
+		return defer.promise;
+	},
+
+	/**
+	 * Make directory.
+	 * @param {string} path path to a directory.
+	 * @param {number} mode directory access mode.
+	 * @returns {boolean} returns true if directory is successfully created.
+	 */
+	mkDir: function(path, mode) {
+		var defer = _.Q.defer();
+
+		try {
+			fs.mkdir(path, mode, function(error, status) {
+				if (error) {
+					defer.resolve(false);
+				}
+				else {
+					defer.resolve(status);
+				}
+			});
+		}
+		catch (e) {
+			defer.resolve(false);
+		}
+
+		return defer.promise;
+	}
 };

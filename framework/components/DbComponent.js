@@ -62,7 +62,7 @@ module.exports = function() {
 						var files = yield _.io.readDir(path);
 
 						//	Load models.
-						_.Q.spawnMap(files, function*(file) {
+						yield _.Q.spawnMap(files, function*(file) {
 							var modelName = _.io.baseName(file, '.js');
 							this._models[modelName] = require(path + file);
 						}.bind(this));

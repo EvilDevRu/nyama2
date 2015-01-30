@@ -153,6 +153,7 @@ module.exports = function() {
 	this.configure = function(url, config) {
 		return _.extend(
 			this._config.useProxy ? { proxy: Nyama.app().proxy.getRand() } : {},
+			this._config,
 			{
 				url: url,
 				type: 'GET',

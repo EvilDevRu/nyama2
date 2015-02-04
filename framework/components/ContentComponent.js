@@ -77,12 +77,13 @@ module.exports = function() {
 				//	Try again.
 				--params.attempts;
 				if (params.attempts <= 0) {
-					defer.reject(new Error('Fail load page "' + url + '", can\'t try again :( [' + params.proxy + ']'));
+					console.error('Fail load page "' + url + '", can\'t try again :( [' + params.proxy + ']');
+					defer.resolve(false);
 					return;
 				}
 
 				if (params.log !== false) {
-					console.error('Fail load page "' + url + '" try again (' + params.attempts + ')');
+					console.warn('Fail load page "' + url + '" try again (' + params.attempts + ')');
 				}
 
 				//	Switch ip of proxy address and useragent.

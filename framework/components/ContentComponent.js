@@ -26,6 +26,18 @@ module.exports = function() {
 	this._attempts = 16;
 
 	/**
+	 * @type {number}
+	 * @private
+	 */
+	this._defaultNumThreads = 1;
+
+	/**
+	 * @type {number}
+	 * @private
+	 */
+	this._numThreads = 0;
+
+	/**
 	 * Init conponent.
 	 * @param {object} config
 	 */
@@ -34,6 +46,7 @@ module.exports = function() {
 
 		if (config && config.components && config.components.content) {
 			this._config = config.components.content;
+			this._config.numThreads = this._config.numThreads || this._defaultNumThreads;
 			console.info('Use proxy:', this._config.useProxy || false);
 		}
 
@@ -46,7 +59,7 @@ module.exports = function() {
 	 * Return html page via get method.
 	 * @param url
 	 * @param params
-	 * @param isOnlyDom
+	 * @param isNeedAnswer
 	 * @returns {promise|*|Q.promise}
 	 */
 	this.get = function(url, params, isNeedAnswer) {
@@ -55,8 +68,18 @@ module.exports = function() {
 		function loop() {
 			params = this.configure(url, params);
 
+			//	Threads.
+			if (this._numThreads >= params.numThreads) {
+				_.Q.whenDelay(loop, defer, this);
+				return;
+			}
+
+			++this._numThreads;
+
 			//	Request.
 			var req = request(params, function(error, response, body) {
+				--this._numThreads;
+
 				params.attempts = _.isNumber(params.attempts) ? params.attempts : this._attempts;
 
 				//	Check result.
